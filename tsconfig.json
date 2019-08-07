@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-number-format": [
+        "dist/ngx-number-format"
+      ],
+      "ngx-number-format/*": [
+        "dist/ngx-number-format/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

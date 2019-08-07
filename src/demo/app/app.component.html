@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">
+        <img height="32px" src="https://angular.io/assets/images/logos/angular/angular.svg" width="32px"> ngx-number-format
+    </a>
+</nav>
+
+<main role="main" class="container">
+
+    <div class="row">
+        <div class="col-6 form-group">
+            <label>Input with format: <strong>#,###</strong></label>
+            <input type="text" class="form-control" ngxNumberFormat="#,###" [(ngModel)]="example1" />
+        </div>
+        <div class="col-6 form-group">
+            <label>Model: </label>
+            <input type="text" class="form-control-plaintext" value="{{example1}}" readonly />
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-6 form-group">
+            <label>Input with format: <strong>#,###.##</strong></label>
+            <input type="text" class="form-control" ngxNumberFormat="#,###.##" [(ngModel)]="example2" />
+        </div>
+        <div class="col-6 form-group">
+            <label>Model: </label>
+            <input type="text" class="form-control-plaintext" value="{{example2}}" readonly />
+        </div>
+    </div>
+
+</main><!-- /.container -->
