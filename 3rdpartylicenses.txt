@@ -59,6 +59,7 @@ THE SOFTWARE.
 
 
 ngx-number-format
+MIT
 
 ngx-number-format-base
 
