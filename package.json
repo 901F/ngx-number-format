@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-lib": "ng build ngx-number-format",
+    "build-demo": "ng build --prod --base-href=https://zmadcatz.github.io/ngx-number-format/",
+    "update-readme-win": "xcopy README.md dist\\ngx-number-format /Y"
   },
   "private": true,
   "dependencies": {
