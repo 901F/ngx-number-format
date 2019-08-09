@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:win": "run-s build:lib build:demo readme:win",
+    "build:deploy": "run-s version build:lib build:demo update:readme",
     "build:lib": "ng build ngx-number-format",
     "build:demo": "ng build --prod --base-href=https://zmadcatz.github.io/ngx-number-format/",
-    "readme:win": "xcopy README.md dist\\ngx-number-format /Y",
+    "update:readme": "cp README.md dist/ngx-number-format -R",
     "version": "node scripts/version"
   },
   "private": true,
