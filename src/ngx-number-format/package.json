@@ -1,6 +1,6 @@
 {
     "name": "ngx-number-format",
-    "version": "0.0.2",
+    "version": "1.0.0-rc.1",
     "peerDependencies": {
         "@angular/common": "^8.2.0",
         "@angular/core": "^8.2.0"
