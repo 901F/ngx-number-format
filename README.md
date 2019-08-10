@@ -6,7 +6,8 @@ Simple number format for input element in <a href="https://angular.io/">Angular<
 
 
 <p align="center">
-<a href="https://badge.fury.io/js/ngx-number-format"><img src="https://badge.fury.io/js/ngx-number-format.svg" alt="npm version"></a>
+<a href="https://www.npmjs.com/package/ngx-number-format"><img src="https://img.shields.io/badge/dynamic/json?color=brightgreen&label=npm%20package&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fzmadcatz%2Fngx-number-format%2Fdevelopment%2Fpackage.json&style=for-the-badge"></a>
+<a href="https://github.com/zMADCATz/ngx-number-format/blob/development/LICENSE"><img alt="GitHub license" src="https://img.shields.io/github/license/zMADCATz/ngx-number-format?color=%23f86a08&style=for-the-badge"></a>
 </p>
 
 
