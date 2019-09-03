@@ -1,0 +1,10 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,constantProperty,extraRequire,missingOverride,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/**
+ * Generated bundle index. Do not edit.
+ */
+export { NgxNumberFormatModule } from './public-api';
+export { NgxNumberFormatDirective as ɵa } from './lib/ngx-number-format.directive';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmd4LW51bWJlci1mb3JtYXQuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9uZ3gtbnVtYmVyLWZvcm1hdC8iLCJzb3VyY2VzIjpbIm5neC1udW1iZXItZm9ybWF0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFJQSxzQ0FBYyxjQUFjLENBQUM7QUFFN0IsT0FBTyxFQUFDLHdCQUF3QixJQUFJLEVBQUUsRUFBQyxNQUFNLG1DQUFtQyxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBHZW5lcmF0ZWQgYnVuZGxlIGluZGV4LiBEbyBub3QgZWRpdC5cbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL3B1YmxpYy1hcGknO1xuXG5leHBvcnQge05neE51bWJlckZvcm1hdERpcmVjdGl2ZSBhcyDJtWF9IGZyb20gJy4vbGliL25neC1udW1iZXItZm9ybWF0LmRpcmVjdGl2ZSc7Il19

@@ -1,0 +1,37 @@
+{
+  "name": "ngx-number-format",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/common": "^8.2.0",
+    "@angular/core": "^8.2.0"
+  },
+  "keywords": [
+    "angular",
+    "angular2",
+    "number-format",
+    "input-number"
+  ],
+  "author": "Suriyapong Thinsuk <thinsuk.s@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:zMADCATz/ngx-number-format.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zMADCATz/ngx-number-format/issues"
+  },
+  "homepage": "https://github.com/zMADCATz/ngx-number-format#readme",
+  "main": "bundles/ngx-number-format.umd.js",
+  "module": "fesm5/ngx-number-format.js",
+  "es2015": "fesm2015/ngx-number-format.js",
+  "esm5": "esm5/ngx-number-format.js",
+  "esm2015": "esm2015/ngx-number-format.js",
+  "fesm5": "fesm5/ngx-number-format.js",
+  "fesm2015": "fesm2015/ngx-number-format.js",
+  "typings": "ngx-number-format.d.ts",
+  "metadata": "ngx-number-format.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}
