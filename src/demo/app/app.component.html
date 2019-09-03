@@ -19,38 +19,49 @@
 
     <div class="row">
         <div class="col-6 form-group">
-            <label>Input with format: <strong>#,###</strong></label>
+            <label>Input with format <code>#,###</code></label>
             <input type="text" class="form-control" ngxNumberFormat="#,###" [(ngModel)]="example1" />
         </div>
         <div class="col-6 form-group">
-            <label>Model: </label>
+            <label>Model </label>
             <input type="text" class="form-control-plaintext" value="{{example1}}" readonly />
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col-6 form-group">
-            <label>Input with format: <strong>#,###.##</strong></label>
+            <label>Input with format <code>#,###.##</code></label>
             <input type="text" class="form-control" ngxNumberFormat="#,###.##" [(ngModel)]="example2" />
         </div>
         <div class="col-6 form-group">
-            <label>Model: </label>
+            <label>Model</label>
             <input type="text" class="form-control-plaintext" value="{{example2}}" readonly />
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col-6 form-group">
-            <label>Config pattern: </label>
+            <label>Work with <code>Reactive Forms</code></label>
+            <input type="text" class="form-control" ngxNumberFormat="#,###.##" [formControl]="control" />
+        </div>
+        <div class="col-6 form-group">
+            <label>Control Value</label>
+            <input type="text" class="form-control-plaintext" value="{{control.value}}" readonly />
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-6 form-group">
+            <label>Config pattern</label>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Pattern" [(ngModel)]="example3" />
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" (click)="setConfig()" >Config</button>
+                    <button class="btn btn-primary" type="button" (click)="setConfig()">Config</button>
                 </div>
             </div>
         </div>
         <div class="col-6 form-group">
-            <label>Input: </label>
+            <label>Input</label>
             <input type="text" class="form-control" [ngxNumberFormat]="config" [(ngModel)]="configInput" />
         </div>
     </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { environment } from '../environments/environment';
 
 @Component({
@@ -14,9 +15,11 @@ export class AppComponent {
     example3: string  = '#,###,###.##';
     config: string;
     configInput: string;
+    control: FormControl;
 
-    constructor() {
+    constructor(private fb: FormBuilder) {
         this.setConfig();
+        this.control = this.fb.control(0);
     }
 
     setConfig() {
