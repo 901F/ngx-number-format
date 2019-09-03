@@ -161,17 +161,18 @@ export class NgxNumberFormatDirective implements ControlValueAccessor, OnInit {
         }
     }
 
-    writeValue(value: any): void {
+    writeValue(value: string | number): void {
 
+        let newValue: string;
         if (value != null && value != '') {
-            if (typeof (value) === 'string') {
-                value = value.replace(/,/g, '');
-            } else {
-                value = value.toString();
+            if (typeof(value) === 'string') {
+                newValue = value.replace(/,/g, '');
+            } else if (typeof(value) === 'number' ) {
+                newValue = value.toString();
             }
         }
 
-        this.onValueChange(value, false);
+        this.onValueChange(newValue, false);
     }
 
     registerOnChange(fn: any): void {
