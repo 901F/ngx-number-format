@@ -2,14 +2,15 @@
     "name": "ngx-number-format",
     "version": "1.0.0-rc.1",
     "peerDependencies": {
-        "@angular/common": "^8.2.0",
-        "@angular/core": "^8.2.0"
+        "@angular/common": "<9.0.0",
+        "@angular/core": "<9.0.0"
     },
     "keywords": [
         "angular",
         "angular2",
         "number-format",
-        "input-number"
+        "input-number",
+        "javascript"
     ],
     "author": "Suriyapong Thinsuk <thinsuk.s@gmail.com>",
     "license": "MIT",
