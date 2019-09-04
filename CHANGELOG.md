@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/zMADCATz/ngx-number-format/compare/1.0.1...1.0.2) (2019-09-04)
+
+
+### Bug Fixes
+
+* **core:** not show 0 when initial value set to 0 ([ffa7052](https://github.com/zMADCATz/ngx-number-format/commit/ffa7052))
+
+
+
 ## 1.0.1 (2019-09-03)
 
 
