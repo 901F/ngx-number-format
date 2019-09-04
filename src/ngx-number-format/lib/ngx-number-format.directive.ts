@@ -1,4 +1,4 @@
-import { Directive, forwardRef, OnInit, ElementRef, Input, HostListener } from '@angular/core';
+import { Directive, forwardRef, OnInit, ElementRef, Input, HostListener, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Directive({
@@ -26,16 +26,20 @@ export class NgxNumberFormatDirective implements ControlValueAccessor, OnInit {
     private _oldSelectionStart: number = 0;
     private _detectDelete: boolean = false;
     private _detectBackspace: boolean = false;
-    private _detectSelectAll: boolean = false;
     private _process: boolean = false;
 
     public onChange = (_: any) => { };
     public onTouch = () => { };
 
-    constructor(private el: ElementRef) { }
+    constructor(
+        private _el: ElementRef, 
+        private _renderer: Renderer2
+    ) { 
+
+    }
 
     ngOnInit() {
-        this._formElement = this.el.nativeElement;
+        this._formElement = this._el.nativeElement;
     }
 
     @Input('ngxNumberFormat')
@@ -79,7 +83,7 @@ export class NgxNumberFormatDirective implements ControlValueAccessor, OnInit {
                 return;
             }
     
-            let current: string = this.el.nativeElement.value;
+            let current: string = this._el.nativeElement.value;
             let firstPart: string = current.substring(0, this._formElement.selectionStart);
             let secondPart: string = current.substring(this._formElement.selectionEnd);
             let next: string = (firstPart.concat(event.key) + secondPart).replace(/,/g, '');
@@ -98,15 +102,16 @@ export class NgxNumberFormatDirective implements ControlValueAccessor, OnInit {
     }
 
     @HostListener('click', ['$event'])
-    public onClick(event): void {
+    public onClick(event: Event): void {
         this._oldSelectionStart = this._formElement.selectionStart;
         this._oldValue = this._formElement.value;
-        this._oldValueForDetectChange = event.target.value;
+        this._oldValueForDetectChange = (<HTMLInputElement>event.target).value;
     }
 
     @HostListener('input', ['$event'])
-    public onInput(event): void {
-        let value = event.target.value;
+    public onInput(event: Event): void {
+
+        let value = (<HTMLInputElement>event.target).value;
 
         if (this._process) {
             if (value && !String(value).replace(/,/g, '').match(this.getRegEx())) {
@@ -123,8 +128,8 @@ export class NgxNumberFormatDirective implements ControlValueAccessor, OnInit {
     }
 
     @HostListener('blur', ['$event'])
-    public onBlur(event): void {
-        let value = event.target.value;
+    public onBlur(event: Event): void {
+        let value = (<HTMLInputElement>event.target).value;
 
         if (value.length > 0 && this._decimal > 0) {
             value = value.replace(/,/g, '');
@@ -163,16 +168,15 @@ export class NgxNumberFormatDirective implements ControlValueAccessor, OnInit {
 
     writeValue(value: string | number): void {
 
-        let newValue: string;
-        if (value != null && value != '') {
+        let newValue: string = '';
+        if (value != null && value !== '') {
             if (typeof(value) === 'string') {
                 newValue = value.replace(/,/g, '');
-            } else if (typeof(value) === 'number' ) {
+            } else if (typeof(value) === 'number') {
                 newValue = value.toString();
             }
         }
-
-        this.onValueChange(newValue, false);
+        this.onValueChange(newValue, false, false);
     }
 
     registerOnChange(fn: any): void {
@@ -187,10 +191,14 @@ export class NgxNumberFormatDirective implements ControlValueAccessor, OnInit {
         this._formElement.disabled = value;
     }
 
-    private onValueChange(newValue: string, cursor: boolean = true) {
+    private formElementProperty([name, value]: [string, string | boolean]) {
+        this._renderer.setProperty(this._formElement, name, value);
+    }
 
-        if (newValue !== this._displayValue && this._process) {
-            let value;
+    private onValueChange(newValue: string, cursor: boolean = true, triggerChange: boolean = true) {
+
+        if (this._process) {
+            let value: string;
 
             if ((newValue == null) || (newValue.trim() === '')) {
                 value = '';
@@ -199,17 +207,14 @@ export class NgxNumberFormatDirective implements ControlValueAccessor, OnInit {
                 value = this.removeLeadingZero(value);
             }
 
-
             if (this._format) {
                 this._displayValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             } else {
                 this._displayValue = value;
             }
 
-
-
-            this._formElement.value = this._displayValue;
-            this.onChange(value);
+            this.formElementProperty(['value', this._displayValue]);
+            if (triggerChange) this.onChange(value);
             if (cursor) {
                 this.processCursorPosition(this._oldValue, this._oldSelectionStart, this._displayValue);
             }
