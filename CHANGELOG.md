@@ -1,3 +1,12 @@
+## [1.0.3](https://github.com/zMADCATz/ngx-number-format/compare/1.0.2...1.0.3) (2019-09-17)
+
+
+### Features
+
+* **core:** refactor code for all function  ([bc5fc99](https://github.com/zMADCATz/ngx-number-format/commit/bc5fc99))
+
+
+
 ## [1.0.2](https://github.com/zMADCATz/ngx-number-format/compare/1.0.1...1.0.2) (2019-09-04)
 
 
