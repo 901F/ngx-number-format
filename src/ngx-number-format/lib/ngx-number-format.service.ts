@@ -29,9 +29,24 @@ export class NgxNumberFormatService {
     }
 
     getRawValue(_value: string): string {
-        if (_value == null || _value.trim() === '') _value = '';
-        else _value = this.removeLeadingZero(this.removeComma(_value));
-        return _value;
+        let returnVal: string;
+        if (_value == null || _value.trim() === '') returnVal = '';
+        else returnVal = this.removeLeadingZero(this.removeComma(this.getNumericPart(_value))) + this.getDecimalPart(_value);
+        return returnVal;
+    }
+
+    getNumericPart(_value: string): string {
+        let returnVal: string = '';
+        let splitValue: string[] = _value.split('.');
+        returnVal = splitValue[0];
+        return returnVal;
+    }
+
+    getDecimalPart(_value: string): string {
+        let returnVal: string = '';
+        let splitValue: string[] = _value.split('.');
+        if (splitValue.length > 1) returnVal = `.${splitValue[1]}`
+        return returnVal;
     }
 
 }
