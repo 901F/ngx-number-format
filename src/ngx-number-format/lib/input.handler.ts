@@ -81,8 +81,10 @@ export class InputHandler {
     }
 
     applyMask(_value: string): string {
-        _value = this._numberFormatService.getRawValue(_value);
-        if (this._formatComma) _value = this._numberFormatService.applyCommaFormat(_value);
+        if (_value) {
+            _value = this._numberFormatService.getRawValue(_value);
+            _value = this._numberFormatService.autoFillDecimal(_value, this._maxDecimal, this._formatComma);
+        }
         this.setFormElementProperty(['value', _value]);
         return _value;
     }
