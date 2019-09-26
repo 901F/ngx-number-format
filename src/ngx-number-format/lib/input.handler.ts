@@ -127,7 +127,7 @@ export class InputHandler {
     private manageBackspaceKey(_event: KeyboardEvent): boolean {
         if (_event.key == 'Backspace') {
             let last: string = this._formElement.value.substring(this._formElement.selectionStart - 1, this._formElement.selectionStart);
-            if (this._formElement.selectionStart == this._formElement.selectionEnd && last == ',') {
+            if (this._formElement.selectionStart == this._formElement.selectionEnd && (last == ',' || last == '.')) {
                 this.setCursorAt(this._formElement.selectionStart - 1);
                 _event.preventDefault();
             }
@@ -139,7 +139,7 @@ export class InputHandler {
     private manageDeleteKey(_event: KeyboardEvent): boolean {
         if (_event.key == 'Delete') {
             let last: string = this._formElement.value.substring(this._formElement.selectionEnd, this._formElement.selectionEnd + 1);
-            if (this._formElement.selectionStart == this._formElement.selectionEnd && last == ',') {
+            if (this._formElement.selectionStart == this._formElement.selectionEnd && (last == ',' || last == '.')) {
                 this.setCursorAt(this._formElement.selectionEnd + 1);
                 _event.preventDefault();
             }
