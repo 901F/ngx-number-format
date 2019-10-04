@@ -41,8 +41,15 @@ export class InputHandler {
         this._triggerBackspace = this.manageBackspaceKey(_event);
         this._triggerDelete = this.manageDeleteKey(_event);
         if (this._numberFormatService.checkSpecialKey(_event)) return;
-        if (this.validateByRegEx(_event.key)) this.setPastValue();
-        else _event.preventDefault();
+        if (this.validateByRegEx(_event.key)) {
+            this.setPastValue();
+            if (this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0 && this._numberFormatService.getNumericPart(this._numberFormatService.getRawValue(this._formElement.value)) == '0') {
+                _event.preventDefault();
+                this.processFirstNumberWhenValueAtZero(_event);
+            }
+        } else {
+            _event.preventDefault();
+        } 
     }
 
     handleClick(_event: Event) {
@@ -52,7 +59,7 @@ export class InputHandler {
     handleInput(_event: Event) {
         let value = (<HTMLInputElement>_event.target).value;
 
-        if (value && !String(value).replace(/,/g, '').match(this._regEx)) {
+        if (value && !this._numberFormatService.removeComma(value).match(this._regEx)) {
             this.setFormElementProperty(['value', '']);
         } else {
             if (this._triggerBackspace || this._triggerDelete) {
@@ -126,8 +133,8 @@ export class InputHandler {
 
     private manageBackspaceKey(_event: KeyboardEvent): boolean {
         if (_event.key == 'Backspace') {
-            let last: string = this._formElement.value.substring(this._formElement.selectionStart - 1, this._formElement.selectionStart);
-            if (this._formElement.selectionStart == this._formElement.selectionEnd && (last == ',' || last == '.')) {
+            let char: string = this._numberFormatService.getLastCharacterFromCursorAtFrontDirection(this._formElement);
+            if (this._numberFormatService.checkCursorAtSamePlace(this._formElement) && (char == ',' || char == '.')) {
                 this.setCursorAt(this._formElement.selectionStart - 1);
                 _event.preventDefault();
             }
@@ -138,8 +145,8 @@ export class InputHandler {
 
     private manageDeleteKey(_event: KeyboardEvent): boolean {
         if (_event.key == 'Delete') {
-            let last: string = this._formElement.value.substring(this._formElement.selectionEnd, this._formElement.selectionEnd + 1);
-            if (this._formElement.selectionStart == this._formElement.selectionEnd && (last == ',' || last == '.')) {
+            let char: string = this._numberFormatService.getLastCharacterFromCursorAtBackDirection(this._formElement);
+            if (this._numberFormatService.checkCursorAtSamePlace(this._formElement) && (char == ',' || char == '.')) {
                 this.setCursorAt(this._formElement.selectionEnd + 1);
                 _event.preventDefault();
             }
@@ -188,6 +195,13 @@ export class InputHandler {
             evt.initEvent("change", false, true);
             _event.target.dispatchEvent(evt);
         }
+    }
+
+    private processFirstNumberWhenValueAtZero(_event: KeyboardEvent) {
+        let newValue: string = _event.key + this._numberFormatService.getDecimalPart(this._formElement.value);
+        this.setFormElementProperty(['value', newValue]);
+        this._onModelChange(newValue);
+        this.setCursorAt(1);
     }
 
 }

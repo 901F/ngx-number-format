@@ -10,6 +10,10 @@ export class NgxNumberFormatService {
             || (_event.keyCode === 88 && (_event.ctrlKey || _event.metaKey)); // Allow: Ctrl + X
     }
 
+    checkCursorAtSamePlace(_formElement: HTMLInputElement): boolean {
+        return _formElement.selectionStart == _formElement.selectionEnd;
+    }
+
     removeLeadingZero(_value: string): string {
         return Number(_value).toString();
     }
@@ -47,6 +51,14 @@ export class NgxNumberFormatService {
         let splitValue: string[] = _value.split('.');
         if (splitValue.length > 1) returnVal = `.${splitValue[1]}`
         return returnVal;
+    }
+
+    getLastCharacterFromCursorAtFrontDirection(_formElement: HTMLInputElement): string {
+        return _formElement.value.substring(_formElement.selectionStart - 1,_formElement.selectionStart);
+    }
+
+    getLastCharacterFromCursorAtBackDirection(_formElement: HTMLInputElement): string {
+        return _formElement.value.substring(_formElement.selectionEnd, _formElement.selectionEnd + 1);
     }
 
 }
