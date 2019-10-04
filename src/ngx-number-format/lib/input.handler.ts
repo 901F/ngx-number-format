@@ -43,7 +43,8 @@ export class InputHandler {
         if (this._numberFormatService.checkSpecialKey(_event)) return;
         if (this.validateByRegEx(_event.key)) {
             this.setPastValue();
-            if (this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0 && this._numberFormatService.getNumericPart(this._numberFormatService.getRawValue(this._formElement.value)) == '0') {
+            if (
+                ((this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0) || (this._formElement.selectionStart == 1 && this._formElement.selectionEnd == 1)) && this._numberFormatService.getNumericPart(this._numberFormatService.getRawValue(this._formElement.value)) == '0') {
                 _event.preventDefault();
                 this.processFirstNumberWhenValueAtZero(_event);
             }
