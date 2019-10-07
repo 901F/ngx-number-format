@@ -67,6 +67,7 @@ export class InputHandler {
 
         if (value && !this._numberFormatService.removeComma(value).match(this._regEx)) {
             this.setFormElementProperty(['value', '']);
+            this._onModelChange('');
         } else {
             if (this._triggerBackspace || this._triggerDelete) {
                 this._pastSelectionStart = this._formElement.selectionStart - 1;
