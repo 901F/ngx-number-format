@@ -41,6 +41,11 @@ export class InputHandler {
         this._triggerBackspace = this.manageBackspaceKey(_event);
         this._triggerDelete = this.manageDeleteKey(_event);
         if (this._numberFormatService.checkSpecialKey(_event)) return;
+        if (_event.key == '.' && this._numberFormatService.getLastCharacterFromCursorAtBackDirection(this._formElement) == '.' && this._numberFormatService.checkCursorAtSamePlace(this._formElement)) {
+            this.setCursorAt(this._formElement.selectionEnd + 1);
+            _event.preventDefault();
+            return;
+        }
         if (this.validateByRegEx(_event.key)) {
             this.setPastValue();
             if (
