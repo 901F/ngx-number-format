@@ -1,3 +1,22 @@
+# [1.1.0](https://github.com/zMADCATz/ngx-number-format/compare/1.0.3...1.1.0) (2019-10-09)
+
+
+### Bug Fixes
+
+* **bug:** update empty value to model when wrong pattern ([995190b](https://github.com/zMADCATz/ngx-number-format/commit/995190b))
+* **bug:** wrong cursor position when zero value ([48011c3](https://github.com/zMADCATz/ngx-number-format/commit/48011c3))
+
+
+### Features
+
+* **core:** auto fill decimal on initial value ([d87a799](https://github.com/zMADCATz/ngx-number-format/commit/d87a799))
+* **core:** move cursor position when remove point ([d519168](https://github.com/zMADCATz/ngx-number-format/commit/d519168))
+* **core:** move cursor to decimal part when selection on point ([aad7f44](https://github.com/zMADCATz/ngx-number-format/commit/aad7f44))
+* **core:** replace 0 value when cursor at front ([936ed0b](https://github.com/zMADCATz/ngx-number-format/commit/936ed0b))
+* **core:** replace decimal value when cursor on decimal part ([16a4a85](https://github.com/zMADCATz/ngx-number-format/commit/16a4a85))
+
+
+
 ## [1.0.3](https://github.com/zMADCATz/ngx-number-format/compare/1.0.2...1.0.3) (2019-09-17)
 
 
