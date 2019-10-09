@@ -52,6 +52,10 @@ export class InputHandler {
                 ((this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0) || (this._formElement.selectionStart == 1 && this._formElement.selectionEnd == 1)) && this._numberFormatService.getNumericPart(this._numberFormatService.getRawValue(this._formElement.value)) == '0') {
                 _event.preventDefault();
                 this.processFirstNumberWhenValueAtZero(_event);
+            } else if (this._numberFormatService.checkCursorAtSamePlace(this._formElement) && this._formElement.value.substring(0, this._formElement.selectionStart).indexOf('.') != -1 && this._formElement.value.indexOf('.') != -1 && this._formElement.selectionStart < this._formElement.value.length) {
+                _event.preventDefault();
+                this.processDecimalValue(_event);
+                // TODO: replace value on cursor at decimal
             }
         } else {
             _event.preventDefault();
@@ -165,8 +169,9 @@ export class InputHandler {
     private validateByRegEx(_key: string): boolean {
         let current: string = this._formElement.value;
         let firstPart: string = current.substring(0, this._formElement.selectionStart);
-        let secondPart: string = current.substring(this._formElement.selectionEnd);
-        let next: string = (firstPart.concat(_key) + secondPart).replace(/,/g, '');
+        let positionForSecondPart: number = (current.indexOf('.') != -1 && firstPart.indexOf('.') != -1) ? this._formElement.selectionEnd + 1 : this._formElement.selectionEnd;
+        let secondPart: string = current.substring(positionForSecondPart);
+        let next: string = this._numberFormatService.removeComma(firstPart.concat(_key) + secondPart);
 
         let value = next.split('.');
         if (next && !String(next).match(this._regEx) || (value[0].length > this._maxDigit && this._formElement.selectionStart == this._formElement.selectionEnd) || (this._maxDecimal > 0 && value.length == 2 && (value[1].length > this._maxDecimal && this._formElement.selectionStart == this._formElement.selectionEnd))) {
@@ -209,6 +214,14 @@ export class InputHandler {
         this.setFormElementProperty(['value', newValue]);
         this._onModelChange(newValue);
         this.setCursorAt(1);
+    }
+
+    private processDecimalValue(_event: KeyboardEvent) {
+        let selectionStart: number = this._formElement.selectionStart;
+        let newValue: string = this._formElement.value.substring(0, selectionStart) + _event.key + this._formElement.value.substring(selectionStart + 1);
+        this.setFormElementProperty(['value', newValue]);
+        this._onModelChange(this._numberFormatService.getRawValue(newValue));
+        this.setCursorAt(selectionStart + 1);
     }
 
 }
