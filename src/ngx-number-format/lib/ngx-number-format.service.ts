@@ -61,4 +61,12 @@ export class NgxNumberFormatService {
         return _formElement.value.substring(_formElement.selectionEnd, _formElement.selectionEnd + 1);
     }
 
+    detectComma(_value: string): boolean {
+        return _value.indexOf(',') !== -1;
+    }
+
+    detectDecimalPoint(_value: string): boolean {
+        return _value.indexOf('.') !== -1;
+    }
+
 }

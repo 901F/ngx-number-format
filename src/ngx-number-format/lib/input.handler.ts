@@ -3,7 +3,7 @@ import { Renderer2 } from '@angular/core';
 
 export class InputHandler {
 
-    private _numberFormatService: NgxNumberFormatService;
+    private _nfs: NgxNumberFormatService;
     private _onModelChange: Function;
     private _onModelTouched: Function;
 
@@ -27,21 +27,21 @@ export class InputHandler {
 
 
     constructor(_formElement: HTMLInputElement, _renderer: Renderer2) {
-        this._numberFormatService = new NgxNumberFormatService();
+        this._nfs = new NgxNumberFormatService();
         this._formElement = _formElement;
         this._renderer = _renderer;
     }
 
     setFormat(_value: string) {
-        this._formatComma = _value.indexOf(',') !== -1;
-        this.setMaxDigitAndMaxDecimal(this._numberFormatService.removeComma(_value));
+        this._formatComma = this._nfs.detectComma(_value);
+        this.setMaxDigitAndMaxDecimal(this._nfs.removeComma(_value));
     }
 
     handleKeyDown(_event: KeyboardEvent) {
         this._triggerBackspace = this.manageBackspaceKey(_event);
         this._triggerDelete = this.manageDeleteKey(_event);
-        if (this._numberFormatService.checkSpecialKey(_event)) return;
-        if (_event.key == '.' && this._numberFormatService.getLastCharacterFromCursorAtBackDirection(this._formElement) == '.' && this._numberFormatService.checkCursorAtSamePlace(this._formElement)) {
+        if (this._nfs.checkSpecialKey(_event)) return;
+        if (_event.key == '.' && this._nfs.getLastCharacterFromCursorAtBackDirection(this._formElement) == '.' && this._nfs.checkCursorAtSamePlace(this._formElement)) {
             this.setCursorAt(this._formElement.selectionEnd + 1);
             _event.preventDefault();
             return;
@@ -49,13 +49,12 @@ export class InputHandler {
         if (this.validateByRegEx(_event.key)) {
             this.setPastValue();
             if (
-                ((this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0) || (this._formElement.selectionStart == 1 && this._formElement.selectionEnd == 1)) && this._numberFormatService.getNumericPart(this._numberFormatService.getRawValue(this._formElement.value)) == '0') {
+                ((this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0) || (this._formElement.selectionStart == 1 && this._formElement.selectionEnd == 1)) && this._nfs.getNumericPart(this._nfs.getRawValue(this._formElement.value)) == '0') {
                 _event.preventDefault();
                 this.processFirstNumberWhenValueAtZero(_event);
-            } else if (this._numberFormatService.checkCursorAtSamePlace(this._formElement) && this._formElement.value.substring(0, this._formElement.selectionStart).indexOf('.') != -1 && this._formElement.value.indexOf('.') != -1 && this._formElement.selectionStart < this._formElement.value.length) {
+            } else if (this._nfs.checkCursorAtSamePlace(this._formElement) && this._nfs.detectDecimalPoint(this._formElement.value.substring(0, this._formElement.selectionStart)) && this._nfs.detectDecimalPoint(this._formElement.value) && this._formElement.selectionStart < this._formElement.value.length) {
                 _event.preventDefault();
                 this.processDecimalValue(_event);
-                // TODO: replace value on cursor at decimal
             }
         } else {
             _event.preventDefault();
@@ -69,7 +68,7 @@ export class InputHandler {
     handleInput(_event: Event) {
         let value = (<HTMLInputElement>_event.target).value;
 
-        if (value && !this._numberFormatService.removeComma(value).match(this._regEx)) {
+        if (value && !this._nfs.removeComma(value).match(this._regEx)) {
             this.setFormElementProperty(['value', '']);
             this._onModelChange('');
         } else {
@@ -78,13 +77,13 @@ export class InputHandler {
                 this._pastValue = this._formElement.value;
             }
             this.processCursorPosition(this.applyMask(value));
-            this._onModelChange(this._numberFormatService.getRawValue(value));
+            this._onModelChange(this._nfs.getRawValue(value));
         }
     }
 
     handleBlur(_event: Event) {
         let value = (<HTMLInputElement>event.target).value;
-        if (value.length > 0) this.setFormElementProperty(['value', this._numberFormatService.autoFillDecimal(value, this._maxDecimal, this._formatComma)]);
+        if (value.length > 0) this.setFormElementProperty(['value', this._nfs.autoFillDecimal(value, this._maxDecimal, this._formatComma)]);
         this._onModelTouched();
         if (value != this._pastValueDOM) this.fixBugOnMicrosoftEdgeAndIE(_event);
     }
@@ -92,7 +91,7 @@ export class InputHandler {
     handleWriteValue(_value: string | number) {
         if (_value != null && _value !== '') {
             let valStr: string = '';
-            if (typeof (_value) === 'string') valStr = this._numberFormatService.removeComma(_value);
+            if (typeof (_value) === 'string') valStr = this._nfs.removeComma(_value);
             else if (typeof (_value) === 'number') valStr = _value.toString();
             this.applyMask(valStr);
         }
@@ -100,8 +99,8 @@ export class InputHandler {
 
     applyMask(_value: string): string {
         if (_value) {
-            _value = this._numberFormatService.getRawValue(_value);
-            _value = this._numberFormatService.autoFillDecimal(_value, this._maxDecimal, this._formatComma);
+            _value = this._nfs.getRawValue(_value);
+            _value = this._nfs.autoFillDecimal(_value, this._maxDecimal, this._formatComma);
         }
         this.setFormElementProperty(['value', _value]);
         return _value;
@@ -144,8 +143,8 @@ export class InputHandler {
 
     private manageBackspaceKey(_event: KeyboardEvent): boolean {
         if (_event.key == 'Backspace') {
-            let char: string = this._numberFormatService.getLastCharacterFromCursorAtFrontDirection(this._formElement);
-            if (this._numberFormatService.checkCursorAtSamePlace(this._formElement) && (char == ',' || char == '.')) {
+            let char: string = this._nfs.getLastCharacterFromCursorAtFrontDirection(this._formElement);
+            if (this._nfs.checkCursorAtSamePlace(this._formElement) && (char == ',' || char == '.')) {
                 this.setCursorAt(this._formElement.selectionStart - 1);
                 _event.preventDefault();
             }
@@ -156,8 +155,8 @@ export class InputHandler {
 
     private manageDeleteKey(_event: KeyboardEvent): boolean {
         if (_event.key == 'Delete') {
-            let char: string = this._numberFormatService.getLastCharacterFromCursorAtBackDirection(this._formElement);
-            if (this._numberFormatService.checkCursorAtSamePlace(this._formElement) && (char == ',' || char == '.')) {
+            let char: string = this._nfs.getLastCharacterFromCursorAtBackDirection(this._formElement);
+            if (this._nfs.checkCursorAtSamePlace(this._formElement) && (char == ',' || char == '.')) {
                 this.setCursorAt(this._formElement.selectionEnd + 1);
                 _event.preventDefault();
             }
@@ -169,9 +168,9 @@ export class InputHandler {
     private validateByRegEx(_key: string): boolean {
         let current: string = this._formElement.value;
         let firstPart: string = current.substring(0, this._formElement.selectionStart);
-        let positionForSecondPart: number = (current.indexOf('.') != -1 && firstPart.indexOf('.') != -1) ? this._formElement.selectionEnd + 1 : this._formElement.selectionEnd;
+        let positionForSecondPart: number = (this._nfs.detectDecimalPoint(current) && this._nfs.detectDecimalPoint(firstPart)) ? this._formElement.selectionEnd + 1 : this._formElement.selectionEnd;
         let secondPart: string = current.substring(positionForSecondPart);
-        let next: string = this._numberFormatService.removeComma(firstPart.concat(_key) + secondPart);
+        let next: string = this._nfs.removeComma(firstPart.concat(_key) + secondPart);
 
         let value = next.split('.');
         if (next && !String(next).match(this._regEx) || (value[0].length > this._maxDigit && this._formElement.selectionStart == this._formElement.selectionEnd) || (this._maxDecimal > 0 && value.length == 2 && (value[1].length > this._maxDecimal && this._formElement.selectionStart == this._formElement.selectionEnd))) {
@@ -187,7 +186,7 @@ export class InputHandler {
     }
 
     private setMaxDigitAndMaxDecimal(_value: string) {
-        if (_value.indexOf('.') !== -1) {
+        if (this._nfs.detectDecimalPoint(_value)) {
             let splitValue: string[] = _value.split('.');
             this._maxDigit = splitValue[0].length;
             this._maxDecimal = splitValue[1].length;
@@ -210,7 +209,7 @@ export class InputHandler {
     }
 
     private processFirstNumberWhenValueAtZero(_event: KeyboardEvent) {
-        let newValue: string = _event.key + this._numberFormatService.getDecimalPart(this._formElement.value);
+        let newValue: string = _event.key + this._nfs.getDecimalPart(this._formElement.value);
         this.setFormElementProperty(['value', newValue]);
         this._onModelChange(newValue);
         this.setCursorAt(1);
@@ -220,7 +219,7 @@ export class InputHandler {
         let selectionStart: number = this._formElement.selectionStart;
         let newValue: string = this._formElement.value.substring(0, selectionStart) + _event.key + this._formElement.value.substring(selectionStart + 1);
         this.setFormElementProperty(['value', newValue]);
-        this._onModelChange(this._numberFormatService.getRawValue(newValue));
+        this._onModelChange(this._nfs.getRawValue(newValue));
         this.setCursorAt(selectionStart + 1);
     }
 
