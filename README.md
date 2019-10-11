@@ -39,4 +39,4 @@ Add `ngxNumberFormat` to your input element:
 <input type="text" ngxNumberFormat="#,###,###" />
 ```
 ## Demo
-[demo project](https://zmadcatz.github.io/ngx-number-format/)
+[demo project](https://madcaz.github.io/ngx-number-format/)
