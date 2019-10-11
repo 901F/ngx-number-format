@@ -68,7 +68,7 @@ export class InputHandler {
     handleInput(_event: Event) {
         let value = (<HTMLInputElement>_event.target).value;
 
-        if (value && !this._nfs.removeComma(value).match(this._regEx)) {
+        if (value && !Number(this._nfs.removeComma(value)).toString().match(this._regEx)) {
             this.setFormElementProperty(['value', '']);
             this._onModelChange('');
         } else {
