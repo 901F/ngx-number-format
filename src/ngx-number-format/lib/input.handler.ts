@@ -38,27 +38,31 @@ export class InputHandler {
     }
 
     handleKeyDown(_event: KeyboardEvent) {
-        this._triggerBackspace = this.manageBackspaceKey(_event);
-        this._triggerDelete = this.manageDeleteKey(_event);
-        if (this._nfs.checkSpecialKey(_event)) return;
-        if (_event.key == '.' && this._nfs.getLastCharacterFromCursorAtBackDirection(this._formElement) == '.' && this._nfs.checkCursorAtSamePlace(this._formElement)) {
-            this.setCursorAt(this._formElement.selectionEnd + 1);
-            _event.preventDefault();
-            return;
-        }
-        if (this.validateByRegEx(_event.key)) {
-            this.setPastValue();
-            if (
-                ((this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0) || (this._formElement.selectionStart == 1 && this._formElement.selectionEnd == 1)) && this._nfs.getNumericPart(this._nfs.getRawValue(this._formElement.value)) == '0') {
+        if (_event.key != ',') {
+            this._triggerBackspace = this.manageBackspaceKey(_event);
+            this._triggerDelete = this.manageDeleteKey(_event);
+            if (this._nfs.checkSpecialKey(_event)) return;
+            if (_event.key == '.' && this._nfs.getLastCharacterFromCursorAtBackDirection(this._formElement) == '.' && this._nfs.checkCursorAtSamePlace(this._formElement)) {
+                this.setCursorAt(this._formElement.selectionEnd + 1);
                 _event.preventDefault();
-                this.processFirstNumberWhenValueAtZero(_event);
-            } else if (this._nfs.checkCursorAtSamePlace(this._formElement) && this._nfs.detectDecimalPoint(this._formElement.value.substring(0, this._formElement.selectionStart)) && this._nfs.detectDecimalPoint(this._formElement.value) && this._formElement.selectionStart < this._formElement.value.length) {
+                return;
+            }
+            if (this.validateByRegEx(_event.key)) {
+                this.setPastValue();
+                if (
+                    ((this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0) || (this._formElement.selectionStart == 1 && this._formElement.selectionEnd == 1)) && this._nfs.getNumericPart(this._nfs.getRawValue(this._formElement.value)) == '0') {
+                    _event.preventDefault();
+                    this.processFirstNumberWhenValueAtZero(_event);
+                } else if (this._nfs.checkCursorAtSamePlace(this._formElement) && this._nfs.detectDecimalPoint(this._formElement.value.substring(0, this._formElement.selectionStart)) && this._nfs.detectDecimalPoint(this._formElement.value) && this._formElement.selectionStart < this._formElement.value.length) {
+                    _event.preventDefault();
+                    this.processDecimalValue(_event);
+                }
+            } else {
                 _event.preventDefault();
-                this.processDecimalValue(_event);
             }
         } else {
             _event.preventDefault();
-        } 
+        }
     }
 
     handleClick(_event: Event) {
