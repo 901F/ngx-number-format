@@ -1,3 +1,17 @@
+## [1.1.1](https://github.com/MADCAZ/ngx-number-format/compare/1.1.0...1.1.1) (2019-10-11)
+
+
+### Bug Fixes
+
+* **bug:** prevent comma character on keydown ([b6cbdec](https://github.com/MADCAZ/ngx-number-format/commit/b6cbdec))
+
+
+### Features
+
+* **core:** change value to zero when remove last number on numeric part ([f2673dd](https://github.com/MADCAZ/ngx-number-format/commit/f2673dd))
+
+
+
 # [1.1.0](https://github.com/zMADCATz/ngx-number-format/compare/1.0.3...1.1.0) (2019-10-09)
 
 
