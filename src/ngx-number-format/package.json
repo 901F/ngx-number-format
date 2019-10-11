@@ -17,10 +17,10 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+ssh://git@github.com:zMADCATz/ngx-number-format.git"
+        "url": "git+ssh://git@github.com:MADCAZ/ngx-number-format.git"
     },
     "bugs": {
-        "url": "https://github.com/zMADCATz/ngx-number-format/issues"
+        "url": "https://github.com/MADCAZ/ngx-number-format/issues"
     },
-    "homepage": "https://github.com/zMADCATz/ngx-number-format#readme"
+    "homepage": "https://github.com/MADCAZ/ngx-number-format#readme"
 }
