@@ -22,6 +22,10 @@ export class NgxNumberFormatService {
         return _value.replace(/,/g, '');
     }
 
+    removeMinusSign(_value: string): string {
+        return _value.replace(/-/g, '');
+    }
+
     applyCommaFormat(_value: string): string {
         return _value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -67,6 +71,10 @@ export class NgxNumberFormatService {
 
     detectDecimalPoint(_value: string): boolean {
         return _value.indexOf('.') !== -1;
+    }
+
+    detectMinusSignOnFirst(_value: string): boolean {
+        return _value.indexOf('-') == 0;
     }
 
 }

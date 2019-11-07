@@ -16,15 +16,17 @@ export class InputHandler {
     private _pastValue: string;
     private _pastValueDOM: string;
 
-    
+    private _rawFormat: string;
     private _formatComma: boolean;
     private _maxDigit: number;
     private _maxDecimal: number;
+    private _allowNegative: boolean = false;
 
     private _regEx: RegExp;
     private _regExNumber: RegExp = new RegExp(/^[0-9]*$/g);
     private _regExNumberAndDecimal: RegExp = new RegExp(/^[0-9]+(\.[0-9]*){0,1}$/g);
-
+    private _regExNumberForNegative: RegExp = new RegExp(/^-?[0-9]*$/g);
+    private _regExNumberAndDecimalForNegative: RegExp = new RegExp(/^-?[0-9]+(\.[0-9]*){0,1}$/g);
 
     constructor(_formElement: HTMLInputElement, _renderer: Renderer2) {
         this._nfs = new NgxNumberFormatService();
@@ -33,12 +35,18 @@ export class InputHandler {
     }
 
     setFormat(_value: string) {
+        this._rawFormat = _value;
         this._formatComma = this._nfs.detectComma(_value);
         this.setMaxDigitAndMaxDecimal(this._nfs.removeComma(_value));
     }
 
+    setAllowNegative(_value: boolean) {
+        this._allowNegative = _value;
+        this.setMaxDigitAndMaxDecimal(this._nfs.removeComma(this._rawFormat));
+    }
+
     handleKeyDown(_event: KeyboardEvent) {
-        if (_event.key != ',') {
+        if (_event.key != ',' && _event.key != '-') {
             this._triggerBackspace = this.manageBackspaceKey(_event);
             this._triggerDelete = this.manageDeleteKey(_event);
             if (this._nfs.checkSpecialKey(_event)) return;
@@ -60,6 +68,19 @@ export class InputHandler {
             } else {
                 _event.preventDefault();
             }
+        } else if (_event.key == '-' && this._allowNegative) {
+            if (!this._formElement.value) {
+                this.setFormElementProperty(['value', '-']);
+            } else if (this._formElement.selectionStart == 0 && this._formElement.selectionEnd == this._formElement.value.length) {
+                this.setFormElementProperty(['value', '-']);
+                this._onModelChange('');
+            } else if (this._nfs.checkCursorAtSamePlace(this._formElement) && this._formElement.selectionStart == 0 && !this._nfs.detectMinusSignOnFirst(this._formElement.value)) {
+                let value = '-' + this._formElement.value;
+                this.applyMask(value);
+                this._onModelChange(this._nfs.getRawValue(value));
+                this.setCursorAt(1);
+            }
+            _event.preventDefault();
         } else {
             _event.preventDefault();
         }
@@ -71,8 +92,7 @@ export class InputHandler {
 
     handleInput(_event: Event) {
         let value = (<HTMLInputElement>_event.target).value;
-
-        if (value && !Number(this._nfs.removeComma(value)).toString().match(this._regEx)) {
+        if ((value && !Number(this._nfs.removeComma(value)).toString().match(this._regEx)) || value.substr(0, 2) == '-0' || value.substr(0, 2) == '-.') {
             this.setFormElementProperty(['value', '']);
             this._onModelChange('');
         } else {
@@ -87,7 +107,11 @@ export class InputHandler {
 
     handleBlur(_event: Event) {
         let value = (<HTMLInputElement>event.target).value;
-        if (value.length > 0) this.setFormElementProperty(['value', this._nfs.autoFillDecimal(value, this._maxDecimal, this._formatComma)]);
+        if (value.length > 0 && value != '-') {
+            this.setFormElementProperty(['value', this._nfs.autoFillDecimal(value, this._maxDecimal, this._formatComma)]);
+        } else if (value == '-') {
+            this.setFormElementProperty(['value', '']);
+        }
         this._onModelTouched();
         if (value != this._pastValueDOM) this.fixBugOnMicrosoftEdgeAndIE(_event);
     }
@@ -172,12 +196,15 @@ export class InputHandler {
     private validateByRegEx(_key: string): boolean {
         let current: string = this._formElement.value;
         let firstPart: string = current.substring(0, this._formElement.selectionStart);
+        if (this._allowNegative && this._nfs.detectMinusSignOnFirst(firstPart)) firstPart = this._nfs.removeMinusSign(firstPart);
         let positionForSecondPart: number = (this._nfs.detectDecimalPoint(current) && this._nfs.detectDecimalPoint(firstPart)) ? this._formElement.selectionEnd + 1 : this._formElement.selectionEnd;
         let secondPart: string = current.substring(positionForSecondPart);
         let next: string = this._nfs.removeComma(firstPart.concat(_key) + secondPart);
 
         let value = next.split('.');
-        if (next && !String(next).match(this._regEx) || (value[0].length > this._maxDigit && this._formElement.selectionStart == this._formElement.selectionEnd) || (this._maxDecimal > 0 && value.length == 2 && (value[1].length > this._maxDecimal && this._formElement.selectionStart == this._formElement.selectionEnd))) {
+        let minusSign: boolean = this._allowNegative && _key == '-' && this._formElement.selectionStart == 0 && this._formElement.selectionEnd == 0 && !this._nfs.detectMinusSignOnFirst(current);
+        if ((next && !String(next).match(this._regEx) || 
+        (value[0].length > this._maxDigit && this._formElement.selectionStart == this._formElement.selectionEnd) || (this._maxDecimal > 0 && value.length == 2 && (value[1].length > this._maxDecimal && this._formElement.selectionStart == this._formElement.selectionEnd))) && !minusSign) {
             return false
         }
         return true;
@@ -194,11 +221,11 @@ export class InputHandler {
             let splitValue: string[] = _value.split('.');
             this._maxDigit = splitValue[0].length;
             this._maxDecimal = splitValue[1].length;
-            this._regEx = this._regExNumberAndDecimal;
+            this._regEx = (!this._allowNegative) ? this._regExNumberAndDecimal : this._regExNumberAndDecimalForNegative;
         } else {
             this._maxDecimal = null;
             this._maxDigit = _value.length;
-            this._regEx = this._regExNumber;
+            this._regEx = (!this._allowNegative) ? this._regExNumber : this._regExNumberForNegative;
         }
     }
 

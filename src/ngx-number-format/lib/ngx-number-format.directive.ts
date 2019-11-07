@@ -25,6 +25,11 @@ export class NgxNumberFormatDirective implements ControlValueAccessor {
         this.inputHandler.setFormat(_format);
     }
 
+    @Input('allowNegative')
+    public set allowNegative(_allow: boolean) {
+        this.inputHandler.setAllowNegative(_allow);
+    }
+
     @HostListener('keydown', ['$event'])
     onKeyDown(_event: KeyboardEvent) {
         this.inputHandler.handleKeyDown(_event);
