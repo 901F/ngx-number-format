@@ -12,12 +12,13 @@ Simple number format for input element in <a href="https://angular.io/">Angular<
 
 
 ## Table of contents
-1. [Installation instructions](#installation-instructions)
-2. [Demo](#demo)
+- [Table of contents](#table-of-contents)
+- [Installation instructions](#installation-instructions)
+- [Demo](#demo)
+- [API](#api)
 
 
 ## Installation instructions
-##### Method 1
 Install `ngx-number-format` from `npm`:
 ```bash
 npm install ngx-number-format --save
@@ -40,3 +41,8 @@ Add `ngxNumberFormat` to your input element:
 ```
 ## Demo
 [demo project](https://madcaz.github.io/ngx-number-format/)
+
+## API
+ Input  | Type | Default | Required | Description |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
+| [allowNegative] | `boolean`  | `false` | no | Allows to negative numbers. |
