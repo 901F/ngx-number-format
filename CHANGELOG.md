@@ -1,3 +1,14 @@
+# [1.2.0](https://github.com/MADCAZ/ngx-number-format/compare/1.1.1...1.2.0) (2019-11-07)
+
+
+### Features
+
+* **core:** support negative number ([7dda536](https://github.com/MADCAZ/ngx-number-format/commit/7dda536)), closes [#1](https://github.com/MADCAZ/ngx-number-format/issues/1)
+* **demo:** update demo with negative number ([2d5a9cf](https://github.com/MADCAZ/ngx-number-format/commit/2d5a9cf))
+* **doc:** update doc about negative number ([64aca2e](https://github.com/MADCAZ/ngx-number-format/commit/64aca2e))
+
+
+
 ## [1.1.1](https://github.com/MADCAZ/ngx-number-format/compare/1.1.0...1.1.1) (2019-10-11)
 
 
