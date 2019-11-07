@@ -16,15 +16,23 @@ export class AppComponent {
     config: string;
     configInput: string;
     control: FormControl;
+    controlForNegative: FormControl;
+    allowNegative: boolean = true;
+    allowNegativeSelect: string = '1';
 
     constructor(private fb: FormBuilder) {
         this.setConfig();
         this.control = this.fb.control(0);
+        this.controlForNegative = this.fb.control('');
     }
 
     setConfig() {
         this.config = this.example3;
         this.configInput = null;
+    }
+
+    allowNegativeChange() {
+        this.allowNegative = this.allowNegativeSelect == '1';
     }
 
 }

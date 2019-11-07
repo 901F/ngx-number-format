@@ -8,7 +8,8 @@
     <ul class="nav navbar-nav">
         <li class="nav-item align-items-center">
             <a href="https://github.com/zMADCATz/ngx-number-format/">
-                <img alt="GitHub Stars" src="https://img.shields.io/github/stars/zMADCATz/ngx-number-format?label=Github&style=social" />
+                <img alt="GitHub Stars"
+                    src="https://img.shields.io/github/stars/zMADCATz/ngx-number-format?label=Github&style=social" />
             </a>
         </li>
     </ul>
@@ -63,6 +64,25 @@
         <div class="col-6 form-group">
             <label>Input</label>
             <input type="text" class="form-control" [ngxNumberFormat]="config" [(ngModel)]="configInput" />
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-4 form-group">
+            <label>Allow negative number</label>
+            <input type="text" class="form-control" ngxNumberFormat="#,###.##" [formControl]="controlForNegative"
+                [(allowNegative)]="allowNegative" />
+        </div>
+        <div class="col-2 form-group">
+            <label for="exampleFormControlSelect1">Option</label>
+            <select class="form-control" [(ngModel)]="allowNegativeSelect" (change)="allowNegativeChange()">
+                <option [value]="1">Enable</option>
+                <option [value]="0">Disable</option>
+            </select>
+        </div>
+        <div class="col-6 form-group">
+            <label>Control Value</label>
+            <input type="text" class="form-control-plaintext" value="{{controlForNegative.value}}" readonly />
         </div>
     </div>
 
