@@ -1,3 +1,12 @@
+# [2.0.0](https://github.com/MADCAZ/ngx-number-format/compare/1.2.0...2.0.0) (2020-02-07)
+
+
+### Features
+
+* **core:** support Angular 9 ([4af9ff4](https://github.com/MADCAZ/ngx-number-format/commit/4af9ff4))
+
+
+
 # [1.2.0](https://github.com/MADCAZ/ngx-number-format/compare/1.1.1...1.2.0) (2019-11-07)
 
 
