@@ -15,7 +15,8 @@
     "version": "node scripts/version",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "demo:deploy": "ngh --dir=dist/demo",
-    "publish": "npm publish dist/ngx-number-format/"
+    "publish": "npm publish dist/ngx-number-format/",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
