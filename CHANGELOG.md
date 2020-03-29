@@ -1,3 +1,12 @@
+## [2.0.1](https://github.com/MADCAZ/ngx-number-format/compare/2.0.0...2.0.1) (2020-03-29)
+
+
+### Bug Fixes
+
+* **core:** fix package json support v 9.0 and 9.1 ([c4f4b67](https://github.com/MADCAZ/ngx-number-format/commit/c4f4b67))
+
+
+
 # [2.0.0](https://github.com/MADCAZ/ngx-number-format/compare/1.2.0...2.0.0) (2020-02-07)
 
 
