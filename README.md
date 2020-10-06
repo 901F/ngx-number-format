@@ -13,10 +13,19 @@ Simple number format for input element in <a href="https://angular.io/">Angular<
 
 ## Table of contents
 - [Table of contents](#table-of-contents)
+- [Versions](#versions)
 - [Installation instructions](#installation-instructions)
 - [Demo](#demo)
 - [API](#api)
 
+## Versions
+
+| Angular| ngx-number-format|
+| ------|:------:| 
+| >=10.0.0 <11.0.0 | v3.x |
+| >=6.0.0 <10.0.0  | v2.x |
+
+---
 
 ## Installation instructions
 Install `ngx-number-format` from `npm`:
