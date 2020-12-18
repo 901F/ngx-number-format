@@ -122,6 +122,8 @@ export class InputHandler {
             if (typeof (_value) === 'string') valStr = this._nfs.removeComma(_value);
             else if (typeof (_value) === 'number') valStr = _value.toString();
             this.applyMask(valStr);
+        } else if (typeof(_value) == 'object' || typeof(_value) == 'string') {
+            this.setFormElementProperty(['value', _value]);
         }
     }
 
