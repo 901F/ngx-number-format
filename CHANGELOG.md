@@ -1,3 +1,12 @@
+# [12.0.0](https://github.com/MADCAZ/ngx-number-format/compare/11.0.0...12.0.0) (2021-06-22)
+
+
+### Features
+
+* **core:** Support Angular 12 ([0ef4f35](https://github.com/MADCAZ/ngx-number-format/commit/0ef4f354d125d10c4e216375498c9fd1f8e50800))
+
+
+
 # [11.0.0](https://github.com/MADCAZ/ngx-number-format/compare/3.0.1...11.0.0) (2021-02-17)
 
 

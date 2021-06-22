@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "build:deploy": "run-s version changelog build:lib build:demo update:readme",
     "build:lib": "ng build ngx-number-format",
-    "build:demo": "ng build --prod --base-href=https://madcaz.github.io/ngx-number-format/",
+    "build:demo": "ng build -c=production --base-href=https://madcaz.github.io/ngx-number-format/",
     "update:readme": "cp -R ./README.md ./dist/ngx-number-format",
     "version": "node scripts/version",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
