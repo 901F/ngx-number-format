@@ -14,7 +14,7 @@
     "update:readme": "cp -R ./README.md ./dist/ngx-number-format",
     "version": "node scripts/version",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "demo:deploy": "ngh --dir=dist/demo",
+    "demo:deploy": "ngh --dir=dist/demo --no-silent",
     "publish": "npm publish dist/ngx-number-format/",
     "postinstall": "ngcc"
   },
