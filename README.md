@@ -22,6 +22,7 @@ Simple number format for input element in <a href="https://angular.io/">Angular<
 
 | Angular| ngx-number-format|
 | ------|:------:| 
+| >=13.0.0 <14.0.0 | v13.x |
 | >=12.0.0 <13.0.0 | v12.x |
 | >=11.0.0 <12.0.0 | v11.x |
 | >=10.0.0 <11.0.0 | v3.x |

@@ -1,130 +1,118 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "src",
-  "projects": {
-    "demo": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "src/demo",
-      "sourceRoot": "src/demo",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/demo",
-            "index": "src/demo/index.html",
-            "main": "src/demo/main.ts",
-            "polyfills": "src/demo/polyfills.ts",
-            "tsConfig": "src/demo/tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "src/demo/favicon.ico",
-              "src/demo/assets"
-            ],
-            "styles": [
-              "src/demo/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/demo/environments/environment.ts",
-                  "with": "src/demo/environments/environment.prod.ts"
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "src",
+    "projects": {
+        "demo": {
+            "projectType": "application",
+            "schematics": {
+                "@schematics/angular:component": {
+                    "style": "scss"
                 }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+            },
+            "root": "src/demo",
+            "sourceRoot": "src/demo",
+            "prefix": "app",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/demo",
+                        "index": "src/demo/index.html",
+                        "main": "src/demo/main.ts",
+                        "polyfills": "src/demo/polyfills.ts",
+                        "tsConfig": "src/demo/tsconfig.app.json",
+                        "aot": true,
+                        "assets": [
+                            "src/demo/favicon.ico",
+                            "src/demo/assets"
+                        ],
+                        "styles": [
+                            "src/demo/styles.scss"
+                        ],
+                        "scripts": []
+                    },
+                    "configurations": {
+                        "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/demo/environments/environment.ts",
+                                    "with": "src/demo/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "2mb",
+                                    "maximumError": "5mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
+                                }
+                            ]
+                        }
+                    }
                 },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "demo:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "demo:build:production"
+                        }
+                    }
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "demo:build"
+                    }
+                },
+                "deploy": {
+                    "builder": "angular-cli-ghpages:deploy",
+                    "options": {}
                 }
-              ]
             }
-          }
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "demo:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "demo:build:production"
+        "ngx-number-format": {
+            "projectType": "library",
+            "root": "src/ngx-number-format",
+            "sourceRoot": "src/ngx-number-format",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "tsConfig": "src/ngx-number-format/tsconfig.lib.json",
+                        "project": "src/ngx-number-format/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "src/ngx-number-format/tsconfig.lib.prod.json"
+                        }
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/ngx-number-format/test.ts",
+                        "tsConfig": "src/ngx-number-format/tsconfig.spec.json",
+                        "karmaConfig": "src/ngx-number-format/karma.conf.js"
+                    }
+                }
             }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "demo:build"
-          }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {}
         }
-      }
     },
-    "ngx-number-format": {
-      "projectType": "library",
-      "root": "src/ngx-number-format",
-      "sourceRoot": "src/ngx-number-format",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "src/ngx-number-format/tsconfig.lib.json",
-            "project": "src/ngx-number-format/ng-package.json"
-          }
-        ,          "configurations": {
-            "production": {
-              "tsConfig": "src/ngx-number-format/tsconfig.lib.prod.json"
-            }
-          }
-},
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/ngx-number-format/test.ts",
-            "tsConfig": "src/ngx-number-format/tsconfig.spec.json",
-            "karmaConfig": "src/ngx-number-format/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "src/ngx-number-format/tsconfig.lib.json",
-              "src/ngx-number-format/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    }
-  },
-  "defaultProject": "demo"
+    "defaultProject": "demo"
 }
