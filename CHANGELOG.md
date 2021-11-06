@@ -1,3 +1,13 @@
+## [13.0.1](https://github.com/MADCAZ/ngx-number-format/compare/12.0.0...13.0.1) (2021-11-06)
+
+
+### Features
+
+* **core:** enable ivy in this project ([777db0a](https://github.com/MADCAZ/ngx-number-format/commit/777db0a19c5c8e76e0373ae6430d8a1e9e9f9908))
+* **core:** support Angular 13 ([71a3d7f](https://github.com/MADCAZ/ngx-number-format/commit/71a3d7feee1ba63225ac8b04db60ac04a49f3573))
+
+
+
 # [12.0.0](https://github.com/MADCAZ/ngx-number-format/compare/11.0.0...12.0.0) (2021-06-22)
 
 

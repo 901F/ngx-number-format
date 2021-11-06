@@ -1,6 +1,6 @@
 {
     "name": "ngx-number-format",
-    "version": "13.0.0",
+    "version": "13.0.1",
     "description": "Simple number format for input element in Angular",
     "peerDependencies": {
         "@angular/common": ">=13.0.0 <14.0.0",
