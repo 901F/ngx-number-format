@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { environment } from '../environments/environment';
 
 @Component({
@@ -15,12 +15,12 @@ export class AppComponent {
     example3: string  = '#,###,###.##';
     config: string;
     configInput: string;
-    control: FormControl;
-    controlForNegative: FormControl;
+    control: UntypedFormControl;
+    controlForNegative: UntypedFormControl;
     allowNegative: boolean = true;
     allowNegativeSelect: string = '1';
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: UntypedFormBuilder) {
         this.setConfig();
         this.control = this.fb.control(0);
         this.controlForNegative = this.fb.control('');
