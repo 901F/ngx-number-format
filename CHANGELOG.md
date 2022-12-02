@@ -1,3 +1,17 @@
+# [15.0.0](https://github.com/MADCAZ/ngx-number-format/compare/14.0.0...15.0.0) (2022-12-02)
+
+
+### Bug Fixes
+
+* **bug:** remove comma when decimal point more than three. ([2d76ec5](https://github.com/MADCAZ/ngx-number-format/commit/2d76ec511ae0e8fe5f4d8a1c0118e6192ec6ceff))
+
+
+### Features
+
+* **core:** support angular 15 ([1c6fc77](https://github.com/MADCAZ/ngx-number-format/commit/1c6fc779e86ae9ea1c91578139b4b31f49e6aa7b))
+
+
+
 # [14.0.0](https://github.com/MADCAZ/ngx-number-format/compare/13.0.1...14.0.0) (2022-09-22)
 
 
