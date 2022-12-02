@@ -33,6 +33,7 @@ export class NgxNumberFormatService {
     autoFillDecimal(_value: string, _decimal: number, _format: boolean): string {
         _value = Number(this.removeComma(_value)).toFixed(_decimal).toString();
         if (_format) _value = this.applyCommaFormat(_value);
+        if (_decimal > 0) _value = _value.split(".")[0] + '.' + this.removeComma(_value.split(".")[1]);
         return _value;
     }
 
